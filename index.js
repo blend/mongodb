@@ -575,8 +575,13 @@ exports.connect = function(config, intern, callback) {
     config.options.sslCA = fs.readFileSync(config.sslCA); 
     config.options.sslValidate = true;
     config.options.ssl = true;
-    // pool size stuff would go here too
+    config.options.authSource = 'admin';
+    config.options.autoReconnect: true;
+    config.options.connectTimeoutMS: 300000;
+    config.options.socketTimeoutMS: 900000;
+    config.options.poolSize: 30;
     extraParams.push('ssl=true');
+    extraParams.push('readPreference=secondaryPreferred');
   }
 
   if(extraParams.length > 0){
