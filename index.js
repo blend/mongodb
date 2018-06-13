@@ -566,13 +566,21 @@ exports.connect = function(config, intern, callback) {
     extraParams.push('readPreference=' + config.readPreference);
   }
 
+  if (config.options && config.options.sslCA) {
+    config.options.sslCA = Buffer.from(config.options.sslCA);
+  } else if (config.sslCA) {
+    // TEMP HACKS
+    config.options.sslCA = fs.readFileSync(config.sslCA); 
+    config.options.sslValidate = true;
+    config.options.ssl = true;
+    // pool size stuff would go here too
+    extraParams.push('ssl=true');
+  }
+
   if(extraParams.length > 0){
       mongoString += '?' + extraParams.join('&');
   }
 
-  if (config.options && config.options.sslCA) {
-    config.options.sslCA = Buffer.from(config.options.sslCA);
-  }
 
   db = config.db || new MongoClient();
 
