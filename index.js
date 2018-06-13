@@ -11,6 +11,10 @@ var fs = require('fs');
 var MongodbDriver = Base.extend({
 
   init: function(connection, internals, mongoString, options) {
+    console.log('init connection', connection);
+    console.log('init internals', internals);
+    console.log('init mongoString', mongoString);
+    console.log('init options', options);
     this._super(internals);
     this.connection = connection;
     this.connectionString = mongoString;
@@ -272,9 +276,9 @@ var MongodbDriver = Base.extend({
    * @param callback    - A callback to return the results
    */
   _run: function(command, collection, options, callback) {
-    console.log('driver _run start command');
-    console.log('driver _run start collection');
-    console.log('driver _run start options');
+    console.log('driver _run start command', command);
+    console.log('driver _run start collection', collection);
+    console.log('driver _run start options', options);
 
     var args = this._makeParamArgs(arguments),
         sort = null,
@@ -496,6 +500,8 @@ function parseObjects( config, port, length ) {
  * @param callback  - The callback to call with a MongodbDriver object
  */
 exports.connect = function(config, intern, callback) {
+  console.log('connect config', config);
+  console.log('connect intern', intern);
   var db;
   var port;
   var host;
