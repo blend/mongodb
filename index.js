@@ -570,6 +570,8 @@ exports.connect = function(config, intern, callback) {
     config.options.sslCA = Buffer.from(config.options.sslCA);
   } else if (config.sslCA) {
     // TEMP HACKS
+    config.options = {
+    };
     config.options.sslCA = fs.readFileSync(config.sslCA); 
     config.options.sslValidate = true;
     config.options.ssl = true;
