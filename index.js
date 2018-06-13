@@ -23,6 +23,7 @@ var MongodbDriver = Base.extend({
    * @param callback
    */
   _createMigrationsCollection: function(callback) {
+    console.log('driver _createMigrationsCollection start', this.internals);
     return this._run('createCollection', this.internals.migrationTable, null)
       .nodeify(callback);
   },
@@ -42,6 +43,7 @@ var MongodbDriver = Base.extend({
    * An alias for _createMigrationsCollection
    */
   createMigrationsTable: function(callback) {
+    console.log('driver createMigrationsTable start');
     this._createMigrationsCollection(callback);
   },
 
@@ -270,6 +272,9 @@ var MongodbDriver = Base.extend({
    * @param callback    - A callback to return the results
    */
   _run: function(command, collection, options, callback) {
+    console.log('driver _run start command');
+    console.log('driver _run start collection');
+    console.log('driver _run start options');
 
     var args = this._makeParamArgs(arguments),
         sort = null,
@@ -293,7 +298,11 @@ var MongodbDriver = Base.extend({
       };
 
       // Get a connection to mongo
+      console.log('about to connect to mongo');
+      console.log('this.connectionString', this.connectionString);
+      console.log('this.options', this.options);
       this.connection.connect(this.connectionString, this.options, function(err, db) {
+        console.log('connection.connect err', err);
 
         if(err) {
           return prCB(err);
@@ -301,6 +310,7 @@ var MongodbDriver = Base.extend({
 
         // Callback function to return mongo records
         var callbackFunction = function(err, data) {
+          console.log('callbackFunction err', err);
 
           if(err) {
             prCB(err);
@@ -311,6 +321,7 @@ var MongodbDriver = Base.extend({
         };
 
         // Depending on the command, we need to use different mongo methods
+        console.log('command', command);
         switch(command) {
           case 'find':
 
