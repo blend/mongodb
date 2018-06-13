@@ -576,10 +576,10 @@ exports.connect = function(config, intern, callback) {
     config.options.sslValidate = true;
     config.options.ssl = true;
     config.options.authSource = 'admin';
-    config.options.autoReconnect: true;
-    config.options.connectTimeoutMS: 300000;
-    config.options.socketTimeoutMS: 900000;
-    config.options.poolSize: 30;
+    config.options.autoReconnect = true;
+    config.options.connectTimeoutMS = 300000;
+    config.options.socketTimeoutMS = 900000;
+    config.options.poolSize = 30;
     extraParams.push('ssl=true');
     extraParams.push('readPreference=secondaryPreferred');
   }
