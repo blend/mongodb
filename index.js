@@ -568,20 +568,6 @@ exports.connect = function(config, intern, callback) {
 
   if (config.options && config.options.sslCA) {
     config.options.sslCA = Buffer.from(config.options.sslCA);
-  } else if (config.sslCA) {
-    // TEMP HACKS
-    config.options = {
-    };
-    config.options.sslCA = fs.readFileSync(config.sslCA); 
-    config.options.sslValidate = true;
-    config.options.ssl = true;
-    config.options.authSource = 'admin';
-    config.options.autoReconnect = true;
-    config.options.connectTimeoutMS = 300000;
-    config.options.socketTimeoutMS = 900000;
-    config.options.poolSize = 30;
-    extraParams.push('ssl=true');
-    extraParams.push('readPreference=secondaryPreferred');
   }
 
   if(extraParams.length > 0){
